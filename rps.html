@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+<body>
+    <script>
+        function capitalize(s)
+        {
+            return (s.charAt(0).toUpperCase() + s.slice(1));
+        }
+        function playerPlay()
+        {
+            let choice = "";
+            while(1)
+            {
+                choice = prompt("Rock, paper, or scissors?");
+                if(choice != null || choice != "")
+                {
+                    choice = choice.trim().toLowerCase();
+                }
+                if( choice != "rock" && choice != "paper" && choice != "scissors" )
+                {
+                    alert("Please choose either rock, paper, or scissors!");
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return choice;
+        }
+        function computerPlay()
+        {
+            const choices = ["rock", "paper", "scissors"];
+            return choices[Math.floor( Math.random() * 3 )];
+        }
+        function playRound( playerSelection, computerSelection )
+        {
+            let win;
+
+            if( playerSelection == computerSelection )
+            {
+                win = "draw";
+            }
+
+            if( playerSelection == "rock" )
+            {
+                if( computerSelection == "scissors" )
+                {
+                    win = "player";
+                }
+                else if( computerSelection == "paper" )
+                {
+                    win = "computer";
+                }
+            }
+            else if( playerSelection == "paper" )
+            {
+                if( computerSelection == "rock" )
+                {
+                    win = "player";
+                }
+                else if( computerSelection == "scissors" )
+                {
+                    win = "computer";
+                }
+            }
+            else if( playerSelection == "scissors" )
+            {
+                if( computerSelection == "paper" )
+                {
+                    win = "player";
+                }
+                else if( computerSelection == "rock" )
+                {
+                    win = "computer";
+                }
+            }
+            
+            return win;
+        }
+        function game()
+        {
+            let playerWins = 0;
+            let computerWins = 0;
+            let message = "";
+            while( playerWins + computerWins < 5)
+            {
+                const playerSelection = playerPlay();
+                const computerSelection = computerPlay();
+                let result = playRound( playerSelection, computerSelection );
+                if(result == "player")
+                {
+                    playerWins++;
+                    message = "You won! " + capitalize(playerSelection) + " beats " + computerSelection + "!";
+                }
+                else if( result == "computer" )
+                {
+                    computerWins++;
+                    message = "You lost! " + capitalize(computerSelection) + " beats " + playerSelection + "!";
+                }
+                else
+                {
+                    message = "It's a draw!";
+                }
+                message += " Current standings: Player-" + playerWins + " Computer-" + computerWins;
+                console.log(message);
+            }
+            if(playerWins>computerWins)
+            {
+                message = "You won the whole game! Final Score: Player-" + playerWins + " Computer-" + computerWins;
+            }
+            else
+            {
+                message = "You lost the whole game! Final Score: Player-" + playerWins + " Computer-" + computerWins;
+            }
+            console.log(message);
+        }
+        game();
+    </script>
+    <button onclick="game()">Play Again! Bo5 RPS!</button>
+</body>
